@@ -16,6 +16,35 @@
 | **Documentación Api** | https://motorcodigolegado.up.railway.app/swagger-ui/index.html |
 | **Demo funcional** | https://motorcodigolegado.up.railway.app/ |
 
+<details>
+<summary><b>Código Prueba</b></summary>
+        
+    MOVE 'JUAN' TO NOMBRE.
+           DISPLAY 'PROCESANDO A: ' NOMBRE.
+           MOVE 2 TO OPCION.
+
+
+           PERFORM VARYING CONTADOR FROM 1 BY 1 UNTIL CONTADOR > 3
+               DISPLAY 'PASO NUMERO: ' CONTADOR
+           END-PERFORM.
+
+
+           IF NOMBRE = 'JUAN'
+               DISPLAY 'EL NOMBRE FUE ASIGNADO CORRECTAMENTE'
+           ELSE
+               DISPLAY 'ERROR EN ASIGNACION'
+           END-IF.
+
+
+           EVALUATE OPCION
+               WHEN 1
+                   DISPLAY 'ESTADO: INICIADO'
+               WHEN 2
+                   DISPLAY 'ESTADO: EN PROCESO'
+               WHEN OTHER
+                   DISPLAY 'ESTADO: DESCONOCIDO'
+           END-EVALUATE.
+</details>
 ---
 
 
@@ -55,9 +84,13 @@ flowchart TD
     Guardar --> LoopLineas
     LoopLineas -- "Fin de lineas del código" --> Fin[Retornar código final]
 ```
+
+
+
 ---
 ## Despliegue On-Premise
 ---
+
 
 -Balanceador de Carga: Gestionado a través del orquestador F5 del banco para distribuir el tráfico y asegurar alta disponibilidad.
 
@@ -82,7 +115,11 @@ flowchart TD
 ## Riesgos de seguridad
 ---
 -Inyección de Código Malicioso : El motor solo procesa texto plano y las reglas están aisladas; no se utiliza eval() ni se compila código en tiempo de ejecución de forma dinámica.
+
 -Acceso no Autorizado : Implementar una politica restrictiva de cors y autenticacion atravez de API-keys.
+
 -Inyección SQL : Al utilizar Spring Data JPA, la aplicación emplea automáticamente consultas parametrizadas. Esto asegura que el motor de la base de datos trate la entrada del usuario estrictamente como texto plano y nunca como código ejecutable.
+
+
 
 
