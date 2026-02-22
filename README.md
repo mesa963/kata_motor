@@ -22,26 +22,15 @@
 ## Arquitectura
 
 ```mermaid
----
-
----
 flowchart TD
     A([Usuario]) --> B([Navegador Web])
-    
-    subgraph Railway [Plataforma Railway]
-
-        B --> C[Frontend: Angular]
-        C -- "Petición REST" --> D[Backend: Spring Boot]
-        
-        subgraph Motor [Motor Reglas]
-            D --> E[API Controller]
-            E --> F[Servicio Migración]
-            F --> G[Reglas]
-        end
-        
-        G -. "Transforma" .-> F
-        F -. "Respuesta JSON" .-> C
-    end
+    B --> C[Frontend: Angular]
+    C -- "Petición REST" --> D[Backend: Spring Boot]
+    D --> E[API Controller]
+    E --> F[Servicio Migración]
+    F --> G[Reglas]
+    G -. "Transforma" .-> F
+    F -. "Respuesta JSON" .-> C
 ```
 ## Flujo Motor legado
 ---
@@ -66,3 +55,29 @@ flowchart TD
     Guardar --> LoopLineas
     LoopLineas -- "Fin de lineas del código" --> Fin[Retornar código final]
 ```
+---
+## Despliegue On-Premise
+---
+
+-Balanceador de Carga: Gestionado a través del orquestador F5 del banco para distribuir el tráfico y asegurar alta disponibilidad.
+
+-Servidores de Aplicación (CI/CD): El despliegue está automatizado mediante GitHub Actions. Al realizar un push o merge a la rama master, los pipelines ejecutan la compilación y el paso a los servidores. Nota: Los servidores destino requieren Node.js y Java JDK 17 instalados.
+
+-Almacenamiento y Seguridad: Soportado por una base de datos Oracle (On-Premise o Cloud). Para garantizar la seguridad, las credenciales se inyectarán a través del DataSource del servidor o mediante variables de entorno, quedando bajo la custodia exclusiva del área responsable.
+
+---
+## Despliegue Cloud (AWS)
+---
+-Amazon API Gateway Se implementa como punto de entrada único para centralizar la configuración de CORS y desacoplar la interfaz de Angular del motor en Spring Boot, facilitando la gestión de tráfico y seguridad perimetral.
+
+-Amazon ECS con AWS Fargate: El proyecto para esta kata se planteo un solo artefacto por facilidad de despliegue (Angular integrado en Spring Boot), se despliega mediante una imagen Docker. Se utiliza Fargate para eliminar la gestión de servidores físicos, delegando la disponibilidad y el escalado al servicio administrado de AWS.
+
+-GitHub Actions podemos automatizar el ciclo de vida completo. Cada push o merge a la rama principal dispara el pipeline de compilación, la generación de la imagen de Docker y el push a Amazon ECR, garantizando un despliegue continuo.
+
+-Amazon RDS (Oracle) o DynamoDB: La elección del motor de base de datos se define por la naturaleza de la data; en este caso simulando la nesecitad de guardar los reportes por ejecucion configuraria una DynamoDB para un almacenamiento NoSQL de alto rendimiento y baja latencia.
+
+-Amazon CloudWatch con esta  herramienta se realizaria la captura de log y monitoreo técnico.
+
+
+
+
