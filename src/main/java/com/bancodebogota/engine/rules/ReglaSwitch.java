@@ -5,9 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ReglaAsignacion implements ReglaMigracion {
-    // MOVE [valor] TO [variable]
-    private static final Pattern PATTERN = Pattern.compile("^(.*?)(?i)MOVE\\s+(.+?)\\s+TO\\s+(.*?)\\.?\\s*$");
+public class ReglaSwitch implements ReglaMigracion {
+    // Busca EVALUATE seguido de una variable
+    private static final Pattern PATTERN = Pattern.compile("^(.*?)(?i)EVALUATE\\s+([^\\s.]+)((?:\\s*\\.)?)$");
 
     @Override
     public boolean coincide(String linea) {
@@ -19,17 +19,14 @@ public class ReglaAsignacion implements ReglaMigracion {
         Matcher matcher = PATTERN.matcher(linea);
         if (matcher.matches()) {
             String indent = matcher.group(1);
-            String valor = matcher.group(2).trim();
-            String variable = matcher.group(3).trim().toLowerCase();
-            // Transformar "MOVE 10 TO AMOUNT" en "AMOUNT = 10;" (en código Java: amount =
-            // 10;)
-            return indent + variable + " = " + valor + ";";
+            String variable = matcher.group(2).trim();
+            return indent + "switch (" + variable.toLowerCase() + ") {";
         }
         return linea;
     }
 
     @Override
     public String obtenerNombreRegla() {
-        return "ReglaAsignacion";
+        return "ReglaSwitch";
     }
 }

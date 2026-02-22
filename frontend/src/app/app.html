@@ -3,11 +3,11 @@
   <div class="card-left">
     <div class="card-header">
       <h2>Código Fuente</h2>
-      <p>Ingresa tu código legacy para migrar automáticamente</p>
+      <p>Ingresa tu código legacy COBOL</p>
     </div>
 
     <div class="editor-container">
-      <textarea class="code-editor" [(ngModel)]="codigoLegado" placeholder="Ej: PERFORM READ-ACCOUNT..."></textarea>
+      <textarea class="code-editor" [(ngModel)]="codigoLegado" placeholder="Ingresa tu código legacy COBOL"></textarea>
     </div>
 
     <div class="card-footer">
@@ -15,8 +15,6 @@
         <label>Lenguaje Destino</label>
         <select [(ngModel)]="lenguajeDestino">
           <option value="Java + Spring Boot">Java + Spring Boot</option>
-          <option value="C# + .NET">C# + .NET</option>
-          <option value="Python + FastAPI">Python + FastAPI</option>
         </select>
       </div>
 

@@ -5,8 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class ReglaFinBloque implements ReglaMigracion {
-    private static final Pattern PATTERN = Pattern.compile("^(.*?)(?i)END-(IF|PERFORM|EVALUATE)\\.?$");
+public class ReglaIndex implements ReglaMigracion {
+    private static final Pattern PATTERN = Pattern.compile("^\\s*\\d+\\s*(.*)$");
 
     @Override
     public boolean coincide(String linea) {
@@ -17,14 +17,13 @@ public class ReglaFinBloque implements ReglaMigracion {
     public String transformar(String linea) {
         Matcher matcher = PATTERN.matcher(linea);
         if (matcher.matches()) {
-            String indent = matcher.group(1);
-            return indent + "}";
+            return matcher.group(1);
         }
         return linea;
     }
 
     @Override
     public String obtenerNombreRegla() {
-        return "ReglaFinBloque";
+        return "ReglaIndex";
     }
 }

@@ -40,7 +40,7 @@ public class ServicioMigracion {
             }
 
             boolean reglaCoincideExceptoAsignacion = false;
-
+            // se aplica la regla de asignacion para limpiar el numero de linea
             for (ReglaMigracion regla : reglas) {
                 if (regla instanceof ReglaAsignacion && regla.coincide(lineaActual)) {
                     lineaActual = regla.transformar(lineaActual);
@@ -56,7 +56,7 @@ public class ServicioMigracion {
 
             // se iteran las reglas
             for (ReglaMigracion regla : reglas) {
-                if (!(regla instanceof ReglaAsignacion) && regla.coincide(lineaActual)) {//
+                if (!(regla instanceof ReglaAsignacion) && regla.coincide(lineaActual)) {
                     lineaActual = regla.transformar(lineaActual);
                     reglasAplicadas.add(regla.obtenerNombreRegla());
                     reglaCoincideExceptoAsignacion = true;
