@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     user[👤 Usuario] -->|Accede vía HTTPS| browser[🌐 Navegador Web]
 
