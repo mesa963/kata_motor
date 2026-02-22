@@ -20,7 +20,16 @@ public class ReglaImpresion implements ReglaMigracion {
             String indent = matcher.group(1);
             String content = matcher.group(2).trim();
 
-            content = content.replace("'", "\"");
+            String[] parts = content.split("'");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < parts.length; i++) {
+                if (i % 2 == 1) {
+                    sb.append("\"").append(parts[i]).append("\"");
+                } else {
+                    sb.append(parts[i].toLowerCase());
+                }
+            }
+            content = sb.toString();
 
             content = content.replaceAll("(\"\\s+)(?=[a-zA-Z])", "\" + ");
             content = content.replaceAll("([a-zA-Z]\\s+)(?=\")", " + \"");
