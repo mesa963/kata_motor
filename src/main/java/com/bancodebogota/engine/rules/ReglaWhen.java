@@ -20,11 +20,8 @@ public class ReglaWhen implements ReglaMigracion {
         if (matcher.matches()) {
             String indent = matcher.group(1);
             String value = matcher.group(2).trim();
-            // Si el valor contiene comillas simples, las reemplazamos por comillas dobles
-            // (opcional pero común en Java)
             value = value.replace("'", "\"");
 
-            // Si es WHEN OTHER (COBOL default)
             if (value.equalsIgnoreCase("OTHER")) {
                 return indent + "default ->";
             }

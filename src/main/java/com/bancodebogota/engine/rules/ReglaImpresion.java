@@ -19,7 +19,13 @@ public class ReglaImpresion implements ReglaMigracion {
         if (matcher.matches()) {
             String indent = matcher.group(1);
             String content = matcher.group(2).trim();
-            return indent + "System.out.println(" + content + ");";
+
+            content = content.replace("'", "\"");
+
+            content = content.replaceAll("(\"\\s+)(?=[a-zA-Z])", "\" + ");
+            content = content.replaceAll("([a-zA-Z]\\s+)(?=\")", " + \"");
+
+            return indent + "System.out.println(" + content.trim() + ");";
         }
         return linea;
     }

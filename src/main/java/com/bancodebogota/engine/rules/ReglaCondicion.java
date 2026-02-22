@@ -19,6 +19,9 @@ public class ReglaCondicion implements ReglaMigracion {
         if (matcher.matches()) {
             String indent = matcher.group(1);
             String condition = matcher.group(2).trim();
+
+            condition = condition.replace("'", "\"");
+
             return indent + "if (" + condition.toLowerCase() + ") {";
         }
         return linea;

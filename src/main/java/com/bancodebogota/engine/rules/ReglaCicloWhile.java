@@ -19,11 +19,11 @@ public class ReglaCicloWhile implements ReglaMigracion {
         Matcher matcher = PATTERN.matcher(linea);
         if (matcher.matches()) {
             String indent = matcher.group(1);
-            String condition = matcher.group(2).trim().toLowerCase();
+            String condition = matcher.group(2).trim();
 
-            // Transformamos el "until" (hasta que sea verdadero) a un while (!condicion)
-            // Ya que en COBOL se repite "hasta que" cambie, en Java es "mientras que" no se
-            // cumpla
+            condition = condition.replace("'", "\"");
+            condition = condition.toLowerCase();
+
             return indent + "while (!(" + condition + ")) {";
         }
         return linea;
