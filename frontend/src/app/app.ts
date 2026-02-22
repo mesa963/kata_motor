@@ -38,14 +38,11 @@ export class App {
         this.reglasAplicadas.set(respuesta.reglasAplicadas || []);
         this.advertencias.set(respuesta.advertencias || []);
 
-        // Si hay un reporte válido nos pasamos al tab de Código automáticamente para que el usuario lo vea
-        // Opcional: setTab('codigo') ya es el tab por defecto.
         this.setTab('codigo');
         this.isGenerando.set(false);
       },
       error: (err) => {
         console.error('Error en migración', err);
-        // Mostrar algun mensaje de error visual si se requiere
         this.isGenerando.set(false);
       }
     });
