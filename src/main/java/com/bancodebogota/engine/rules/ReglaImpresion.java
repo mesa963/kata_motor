@@ -19,7 +19,7 @@ public class ReglaImpresion implements ReglaMigracion {
         if (matcher.matches()) {
             String indent = matcher.group(1);
             String content = matcher.group(2).trim();
-            return indent + "logger.info(" + content + ");";
+            return indent + "System.out.println(" + content + ");";
         }
         return linea;
     }

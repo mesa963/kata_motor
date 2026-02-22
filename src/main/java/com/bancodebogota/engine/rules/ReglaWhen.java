@@ -26,10 +26,10 @@ public class ReglaWhen implements ReglaMigracion {
 
             // Si es WHEN OTHER (COBOL default)
             if (value.equalsIgnoreCase("OTHER")) {
-                return indent + "default:";
+                return indent + "default ->";
             }
 
-            return indent + "case " + value + ":";
+            return indent + "case " + value + " ->";
         }
         return linea;
     }
