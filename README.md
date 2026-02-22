@@ -4,8 +4,8 @@ graph TD
 
     subgraph "Railway Platform (Single Deployment)"
         subgraph "Spring Boot Artifact (.jar)"
-            angular[Front-End: Angular <br/> (Zoneless + Signals)]
-            springboot[Back-End: Spring Boot <br/> (Java 17)]
+            angular["Front-End: Angular <br/> (Zoneless + Signals)"]
+            springboot["Back-End: Spring Boot <br/> (Java 17)"]
             
             browser -->|Carga aplicación| angular
             angular -->|Envía código COBOL (REST)| springboot
@@ -13,7 +13,7 @@ graph TD
             subgraph "Motor de Migración (Core)"
                 controller[API Controller]
                 service[Servicio de Migración]
-                rules[Reglas (Patrón Strategy)]
+                rules["Reglas (Patrón Strategy)"]
 
                 springboot --> controller
                 controller -->|Delega proceso| service
