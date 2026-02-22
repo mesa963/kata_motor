@@ -1,35 +1,68 @@
-graph TD
-    user[👤 Usuario] -->|Accede vía HTTPS| browser[🌐 Navegador Web]
+# Kata Motor codigo legado 
+<div align="center">
+<img src="https://img.shields.io/badge/Angular-DD0031.svg?style=flat&logo=angular&logoColor=white">
+<img src="https://img.shields.io/badge/Java-ED8B00.svg?style=flat&logo=java&logoColor=white">
+<img src="https://img.shields.io/badge/Spring_Boot-6DB33F.svg?style=flat&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/Railway-131415.svg?style=flat&logo=railway&logoColor=white">
+</div>
 
-    subgraph railway["Railway Platform (Single Deployment)"]
-        subgraph artifact["Spring Boot Artifact (.jar)"]
-            angular["Front-End: Angular\n(Zoneless + Signals)"]
-            springboot["Back-End: Spring Boot\n(Java 17)"]
-            
-            browser -->|Carga aplicación| angular
-            angular -->|Envía código COBOL (REST)| springboot
+---
 
-            subgraph core["Motor de Migración (Core)"]
-                controller[API Controller]
-                service[Servicio de Migración]
-                rules["Reglas (Patrón Strategy)"]
+## Enlaces importantes 📌
 
-                springboot --> controller
-                controller -->|Delega proceso| service
-                service -->|Itera y aplica| rules
-                rules -->|Transforma a Java| service
-            end
+| Recurso | Link |
+|--------|------|
+| **Repositorio GitHub** | https://github.com/mesa963/kata_motor |
+| **Documentación Api** | https://motorcodigolegado.up.railway.app/swagger-ui/index.html |
+| **Demo funcional** | https://motorcodigolegado.up.railway.app/ |
 
-            service -->|Devuelve resultado| controller
-            controller -->|Respuesta JSON| angular
+---
+
+
+## Arquitectura
+
+```mermaid
+---
+
+---
+flowchart TD
+    A([Usuario]) --> B([Navegador Web])
+    
+    subgraph Railway [Plataforma Railway]
+
+        B --> C[Frontend: Angular]
+        C -- "Petición REST" --> D[Backend: Spring Boot]
+        
+        subgraph Motor [Motor Reglas]
+            D --> E[API Controller]
+            E --> F[Servicio Migración]
+            F --> G[Reglas]
         end
+        
+        G -. "Transforma" .-> F
+        F -. "Respuesta JSON" .-> C
     end
+```
+## Flujo Motor legado
+---
 
-    angular -->|Muestra código Java| browser
+```mermaid
 
-    style user fill:#f9f,stroke:#333,stroke-width:2px
-    style browser fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style angular fill:#dd0031,stroke:#333,stroke-width:2px,color:white,stroke-dasharray: 5 5
-    style springboot fill:#6db33f,stroke:#333,stroke-width:2px,color:white
-    style railway fill:#f0f0f0,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5
-    style core fill:#e8eaf6,stroke:#3f51b5,stroke-width:1px
+flowchart TD
+    Inicio[MigracionController] --> Service[ServicioMigracion]
+    Service --> Split[Dividir codigo legado por líneas]
+    
+    Split --> LoopLineas[Iterar línea por línea]
+    LoopLineas --> LoopReglas[Iterar lista de Reglas Inyectadas]
+    
+    LoopReglas --> Evaluar{regla.coincide?}
+    
+    Evaluar -- "Sí" --> Transformar[regla.transformar]
+    Transformar --> Guardar[Agregar línea a resultado Java]
+    
+    Evaluar -- "No" --> SiguienteRegla[Probar siguiente Regla]
+    SiguienteRegla --> LoopReglas
+    
+    Guardar --> LoopLineas
+    LoopLineas -- "Fin de lineas del código" --> Fin[Retornar código final]
+```
