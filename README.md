@@ -82,7 +82,10 @@ flowchart TD
 ## Riesgos de seguridad
 ---
 -Inyección de Código Malicioso : El motor solo procesa texto plano y las reglas están aisladas; no se utiliza eval() ni se compila código en tiempo de ejecución de forma dinámica.
+
 -Acceso no Autorizado : Implementar una politica restrictiva de cors y autenticacion atravez de API-keys.
+
 -Inyección SQL : Al utilizar Spring Data JPA, la aplicación emplea automáticamente consultas parametrizadas. Esto asegura que el motor de la base de datos trate la entrada del usuario estrictamente como texto plano y nunca como código ejecutable.
+
 
 
