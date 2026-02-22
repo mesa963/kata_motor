@@ -24,8 +24,8 @@ public class ReglaCicloFor implements ReglaMigracion {
             String start = matcher.group(3).trim();
             String step = matcher.group(4).trim();
             String condition = matcher.group(5).trim().toLowerCase();
+            condition = condition.replace(">", "<=");
 
-            // Construimos la condición del bucle for en Java (ej: for(int i=1; i<10; i+=1))
             return indent + "for (int " + variable + " = " + start + "; " + condition + "; " + variable + " += " + step
                     + ") {";
         }

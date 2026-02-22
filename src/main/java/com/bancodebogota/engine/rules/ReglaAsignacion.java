@@ -21,9 +21,8 @@ public class ReglaAsignacion implements ReglaMigracion {
             String indent = matcher.group(1);
             String valor = matcher.group(2).trim();
             String variable = matcher.group(3).trim().toLowerCase();
-            // Transformar "MOVE 10 TO AMOUNT" en "AMOUNT = 10;" (en código Java: amount =
-            // 10;)
-            return indent + variable + " = " + valor + ";";
+            // Transformar "MOVE 10 TO AMOUNT" en "var amount = 10;"
+            return indent + "var " + variable + " = " + valor + ";";
         }
         return linea;
     }

@@ -2,7 +2,7 @@ package com.bancodebogota.service;
 
 import com.bancodebogota.dto.SolicitudMigracion;
 import com.bancodebogota.dto.RespuestaMigracion;
-import com.bancodebogota.engine.rules.ReglaAsignacion;
+import com.bancodebogota.engine.rules.ReglaIndex;
 import com.bancodebogota.engine.rules.ReglaMigracion;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +42,7 @@ public class ServicioMigracion {
             boolean reglaCoincideExceptoAsignacion = false;
             // se aplica la regla de asignacion para limpiar el numero de linea
             for (ReglaMigracion regla : reglas) {
-                if (regla instanceof ReglaAsignacion && regla.coincide(lineaActual)) {
+                if (regla instanceof ReglaIndex && regla.coincide(lineaActual)) {
                     lineaActual = regla.transformar(lineaActual);
                     reglasAplicadas.add(regla.obtenerNombreRegla());
                     break;
@@ -56,7 +56,7 @@ public class ServicioMigracion {
 
             // se iteran las reglas
             for (ReglaMigracion regla : reglas) {
-                if (!(regla instanceof ReglaAsignacion) && regla.coincide(lineaActual)) {
+                if (!(regla instanceof ReglaIndex) && regla.coincide(lineaActual)) {
                     lineaActual = regla.transformar(lineaActual);
                     reglasAplicadas.add(regla.obtenerNombreRegla());
                     reglaCoincideExceptoAsignacion = true;
